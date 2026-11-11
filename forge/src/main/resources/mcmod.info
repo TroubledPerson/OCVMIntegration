@@ -1,0 +1,15 @@
+[
+  {
+    "modid": "ocpp_vmintegration",
+    "name": "OC++ VM Integration (Simulated)",
+    "description": "Offline providers and explicit in-memory QMP fixtures. No native runtime, real IPC, guest or disk attachment.",
+    "version": "0.3.0-dev.3",
+    "mcversion": "1.12.2",
+    "authorList": [
+      "TroubledPerson"
+    ],
+    "dependencies": [
+      "opencomputers"
+    ]
+  }
+]

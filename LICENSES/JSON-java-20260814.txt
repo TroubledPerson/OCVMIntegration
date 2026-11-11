@@ -1,0 +1,5 @@
+Public Domain.
+
+Exact upstream declaration for JSON-java tag 20260814, commit 6c140480797ad70a41df84bc8ebab405ca44656b.
+Source: https://github.com/stleary/JSON-java/blob/20260814/LICENSE
+Namespace relocation for this addon is disclosed in JSON-MIGRATION.md.

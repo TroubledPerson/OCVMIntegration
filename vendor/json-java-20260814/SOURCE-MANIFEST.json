@@ -1,0 +1,175 @@
+{
+  "coordinates": "org.json:json:20260814",
+  "version": "20260814",
+  "commit": "6c140480797ad70a41df84bc8ebab405ca44656b",
+  "source_inventory_sha256": "f8c8c5af5668cc8ccdb5fd528aff9eab910945a4ee55b16981621585c5db89e6",
+  "license": "Public Domain.",
+  "java_source_target": "1.8",
+  "runtime_dependencies": 0,
+  "files": [
+    {
+      "path": "org/json/CDL.java",
+      "bytes": 16186,
+      "git_blob": "0e80467982101b7a51e472056dcdb0cbce3ea3bb",
+      "sha256": "33efdfbc886543ce85238fcdc35c13bd31a8eef9484e8e5c0b5c267b968b633b"
+    },
+    {
+      "path": "org/json/Cookie.java",
+      "bytes": 8129,
+      "git_blob": "f7bab236fdaffb6b2c41955f03c7388451b7345c",
+      "sha256": "0b80ac6d32acc5d0b56ee52a8a45a57a8cd7e682c2991729819dfebc6864a032"
+    },
+    {
+      "path": "org/json/CookieList.java",
+      "bytes": 2482,
+      "git_blob": "ce47aee022353909d3c23e51cf5aa726836a155e",
+      "sha256": "ad4034d6370e8472529dbd760d3fd23c2c58f214295a404c4ce20926942951ee"
+    },
+    {
+      "path": "org/json/HTTP.java",
+      "bytes": 4812,
+      "git_blob": "44ab3a6d34caebaeb08697c9e5706a21a39f6fac",
+      "sha256": "921d9013b3da6d556e6b4d7fde3236d257b00f3a98d1bc1b4cb68067c87e5d6f"
+    },
+    {
+      "path": "org/json/HTTPTokener.java",
+      "bytes": 1363,
+      "git_blob": "48cad31a340ae37ca4a8f7f4836903f7c1f3dbee",
+      "sha256": "666ebbffe90d1985d9c6aa43c87f8ca8a680ec45ea3b71bfe5dfaf293142515a"
+    },
+    {
+      "path": "org/json/JSONArray.java",
+      "bytes": 72860,
+      "git_blob": "0d7fde9df2bd819d7a47966725bb33f7b10b818a",
+      "sha256": "0f44ab1c1475b65bdc78a49920eb16309741246b6866fcf7846c86bd9c62767d"
+    },
+    {
+      "path": "org/json/JSONException.java",
+      "bytes": 1135,
+      "git_blob": "02c29f3fc4f340c7e2a9766ed2f3341ef90c7993",
+      "sha256": "93d177d4e7236a58850b911d360a129aed190ee2f8e15cd44f97c7f510d4cbd9"
+    },
+    {
+      "path": "org/json/JSONML.java",
+      "bytes": 29280,
+      "git_blob": "6ec9970615eb576f37e427b06c4e2dba80e551f3",
+      "sha256": "358b51334f63960edb3c013d756c862b37888dc8a28fe5d3cd15a44cb7f4bc14"
+    },
+    {
+      "path": "org/json/JSONMLParserConfiguration.java",
+      "bytes": 2611,
+      "git_blob": "43ba0db6224a553f993fbec4e6accf8e99120c47",
+      "sha256": "43bd69c53f830653fe6d27957630ba8d33ea7cd45282b3a20bbf3dc0d75d31a3"
+    },
+    {
+      "path": "org/json/JSONObject.java",
+      "bytes": 137707,
+      "git_blob": "bcd218e5dac076df67141fcaf528b4ee095cf6e4",
+      "sha256": "1ed9f52ef946581068562bdaa80a5412ac95d3533923df99c323c6d8dc650cf1"
+    },
+    {
+      "path": "org/json/JSONParserConfiguration.java",
+      "bytes": 6139,
+      "git_blob": "0cfa2eaef37ea4c5b08938811933b450db17a42c",
+      "sha256": "b042ae1b06952a510980096a19d85f7e811f400b21d0df3100a7afa363070549"
+    },
+    {
+      "path": "org/json/JSONPointer.java",
+      "bytes": 10901,
+      "git_blob": "34066c1aa186b33573f525126209c2ca6ccb15bc",
+      "sha256": "0e9dee1f2073fa9eef12ccea010cb9a6b7e176ac0ed6436793cc736c549b158f"
+    },
+    {
+      "path": "org/json/JSONPointerException.java",
+      "bytes": 954,
+      "git_blob": "dc5a25ad6a1645a3607d32fcf38c5b695f2fea2f",
+      "sha256": "19a80f86b5760b41dc20a71551947b13079864bfc452337f30f71f8f5de9a879"
+    },
+    {
+      "path": "org/json/JSONPropertyIgnore.java",
+      "bytes": 632,
+      "git_blob": "d3a5bc5a1821a0b10cf8129ae1726e5dea07d806",
+      "sha256": "2250964417ecbfcd27f1c2ca9334aba39de8083bc13825878534d5a68388d5dc"
+    },
+    {
+      "path": "org/json/JSONPropertyName.java",
+      "bytes": 753,
+      "git_blob": "0e4123f37d10b95fea85ad40e30310b555513974",
+      "sha256": "42d2a6adbf415ea79047c62b76f11e0185e85835c2ca9e7b9dd3a93db9263572"
+    },
+    {
+      "path": "org/json/JSONString.java",
+      "bytes": 732,
+      "git_blob": "cd8d1847d84e67f12e92f5e9f22fdb2dd87d4b07",
+      "sha256": "0b5ce50e18afb082c372da7ad413609d7b36fb13af26e1ab55aa4e733a6bf85b"
+    },
+    {
+      "path": "org/json/JSONStringer.java",
+      "bytes": 2118,
+      "git_blob": "2f6cf9ed8b73c504b55f2d3b29b5c6d05051d396",
+      "sha256": "b31b39e2c7176dffd2693683bfa8ad5860b017e15cd5c5fcd51d1dbcb2d7deb0"
+    },
+    {
+      "path": "org/json/JSONTokener.java",
+      "bytes": 20487,
+      "git_blob": "3726856d35068b7b9f199a7206a6ec4eb68f5cdc",
+      "sha256": "cac49fc894f56ca9da49aacc8f592be3babfe184fbad2d69faf3ae171470f7ab"
+    },
+    {
+      "path": "org/json/JSONWriter.java",
+      "bytes": 13493,
+      "git_blob": "11f4a5c7ea03156839280c9eb539f38422298819",
+      "sha256": "33ebcf4900500d8ce370874100674693f3537fd38e764f4974dc36831dd5ea38"
+    },
+    {
+      "path": "org/json/ParserConfiguration.java",
+      "bytes": 6763,
+      "git_blob": "e80093cac856c61b5fa67e3c8c1a678af7421c0a",
+      "sha256": "ec8167757f9197806d2f6d83b8c5b26f3f7b841498b47b75a653e8b70af64ac0"
+    },
+    {
+      "path": "org/json/Property.java",
+      "bytes": 1958,
+      "git_blob": "ba6c56967fe0a05359a16d5c9f9d5a97f1e4bb73",
+      "sha256": "add68dc61be27693206e26b936c9f2a6330009259a427d7e451c0a7fb2bdcb91"
+    },
+    {
+      "path": "org/json/StringBuilderWriter.java",
+      "bytes": 2383,
+      "git_blob": "4aaa4903f7c9b889f3842ad7449062f0b51a7f1e",
+      "sha256": "50de802df0d89f10ee69f9db4ab5e010ecb0a3ef803c4b85d452380453b93f2e"
+    },
+    {
+      "path": "org/json/XML.java",
+      "bytes": 49466,
+      "git_blob": "f5846cc1ea214bdcc1ef34a2526995596b3b003c",
+      "sha256": "9aa52cf010eb3fee8632b040d469a2182a2eedf3de4ff23a1aac45e725dc9cd4"
+    },
+    {
+      "path": "org/json/XMLParserConfiguration.java",
+      "bytes": 19902,
+      "git_blob": "de84b90cbbabae28b17c9e8a1b00a978be910c88",
+      "sha256": "694104994c3c7d3b12e85169baf343525122afa08c877f06b648aa564b03f7c8"
+    },
+    {
+      "path": "org/json/XMLTokener.java",
+      "bytes": 14728,
+      "git_blob": "dc90f84d41e5f9825c91499b659aaf8f34661fa1",
+      "sha256": "47d5443def8bc950561144b30d28c05fd0fd6fb2ceaaa3f7ac442b50ea2a4728"
+    },
+    {
+      "path": "org/json/XMLXsiTypeConverter.java",
+      "bytes": 1446,
+      "git_blob": "ea6739d343e4b4a62dd318db77ab13345e714b25",
+      "sha256": "578f7cb4d5435f963d9e380719e6b21dd6943ab8dc2f7fd98051d92b1aeb1bf4"
+    }
+  ],
+  "official_release": "https://github.com/stleary/JSON-java/releases/tag/20260814",
+  "official_pom": "https://github.com/stleary/JSON-java/blob/20260814/pom.xml",
+  "official_license": "https://github.com/stleary/JSON-java/blob/20260814/LICENSE",
+  "acquisition": "Official GitHub source files at pinned commit; all source Git blob hashes verified. Maven artifact acquisition failed TLS validation; no Maven binary/hash qualified.",
+  "modification": "Original vendor files are unchanged. Build-generated copies replace org.json package prefix with li.cil.oc.vm.internal.jsonjava20260814; no other creative/source changes.",
+  "tag_pom_sha256": "61937e25d261f93d16e8d9f5ccdb1b700780ec1ccb4876444654736628c62095",
+  "tag_license_sha256": "86cc84f1773e3318ba26fd61b3ae508a167df38b361695e105f6e499e7a2736f",
+  "maven_binary_verified": false
+}

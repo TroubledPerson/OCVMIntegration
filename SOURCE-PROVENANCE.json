@@ -1,0 +1,420 @@
+{
+  "main_source_commit": "1e7286dea0b49ae82b1cadb87bcbb02f4410f7c4",
+  "upstream_baseline": "258943363ea8fc4ef14948e6bc6f67375061580c",
+  "excluded": [
+    "Private runtime manifest and PinnedBundle",
+    "Private native payload/firmware/images/installers",
+    "Private build drivers/reports/logs/screenshots",
+    "Private Forge embedded entrypoint and packaged native test"
+  ],
+  "new_glue": "JSON-java 20260814 staged source migration with early bounded preflight and isolated runtime namespace. GPL choice, indirect runtime review, compilation and publication remain gated. Owner selected QEMU-style overall GPLv2/per-file scope. Private test permitted, public release remains gated; direct/indirect parser boundary disclosed.",
+  "publicationScope": "Source-only offline/simulated addon, isolated JSON-java and inactive Java-only prototype; no native runtime or private build outputs.",
+  "sourceRepository": "https://github.com/TroubledPerson/OCVMIntegration",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 301,
+      "sha256": "e0bfc3d823a139f15a2aa518fb7f828ce631a10deacbc57e9d65678a6c6fa422"
+    },
+    {
+      "path": "JSON-MIGRATION.md",
+      "bytes": 5117,
+      "sha256": "ac94d67d56a9cd1ce48c6fbc2c4cb22157b3b926aa98a2b0e3aa12b01576274c"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 17337,
+      "sha256": "aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3"
+    },
+    {
+      "path": "LICENSE-DECISION.json",
+      "bytes": 1166,
+      "sha256": "04f9115e82d11941702232f0424ffca3531922b6f7d120be0b598062953b3901"
+    },
+    {
+      "path": "LICENSES/GPL-2.0-only.txt",
+      "bytes": 17337,
+      "sha256": "aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3"
+    },
+    {
+      "path": "LICENSES/GPL-3.0-only.txt",
+      "bytes": 34675,
+      "sha256": "203c10ae2f92356d658522ee61db97e5daad634c5dc4190bc0bd23a1511a33b4"
+    },
+    {
+      "path": "LICENSES/Gradle-7.6.6-LICENSE.txt",
+      "bytes": 23622,
+      "sha256": "9536d88ea948603d18e232a13f5958d67807cd80828036b082bff171d2cf0703"
+    },
+    {
+      "path": "LICENSES/JSON-java-20260814.txt",
+      "bytes": 258,
+      "sha256": "7d1bca0fda85306ad2034af0b43808ffcb458cf0ceb2ea6aa15ee95528711dc3"
+    },
+    {
+      "path": "LICENSES/MIT-OpenComputers.txt",
+      "bytes": 2033,
+      "sha256": "1b0d4f8553b5a99ed0d307eb9bd0c45b303d2f91f0320815edc7890c274d7ff5"
+    },
+    {
+      "path": "LICENSING.md",
+      "bytes": 2446,
+      "sha256": "d80b9c20257cd3ac315aa05ceec5c73887beeef11d9f7e248ed3edf6ffa5b815"
+    },
+    {
+      "path": "PACKAGING-REQUIREMENTS.md",
+      "bytes": 2409,
+      "sha256": "89c6cbec6cc81a7b3649b27eae3bcd7b4587df943f3293401c60d955c8549957"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5180,
+      "sha256": "8c03bb3ccde1160616d8bdeef6ceb201038da6a2287d645854b62b15b757f80c"
+    },
+    {
+      "path": "TESTING.md",
+      "bytes": 2324,
+      "sha256": "065c5c3365d5be5d46ae6ae4ab71cfd1c0c6746d5e5093914425f4ff0928f160"
+    },
+    {
+      "path": "api/src/main/java/li/cil/oc/api/vm/AggregateLease.java",
+      "bytes": 1952,
+      "sha256": "d5613112d061c96398991934ac391f78958d69a151d1b22d6cca5f1ba656ca25"
+    },
+    {
+      "path": "api/src/main/java/li/cil/oc/api/vm/MockVmTransport.java",
+      "bytes": 1323,
+      "sha256": "704580492d982af6e0138815f14f4e34fff6c424e43f97d0c8ddd10c54ae3610"
+    },
+    {
+      "path": "api/src/main/java/li/cil/oc/api/vm/OfflineVmManager.java",
+      "bytes": 1764,
+      "sha256": "206afec173e678fd91d6fe610c63d203b884c777b884cc5bf782929d43730c04"
+    },
+    {
+      "path": "api/src/main/java/li/cil/oc/api/vm/SuperBios.java",
+      "bytes": 1185,
+      "sha256": "01f465e4111fa95e08eabb9df01fc2c9858a10ce8aff692e2612e4eab94853b8"
+    },
+    {
+      "path": "api/src/main/java/li/cil/oc/api/vm/VmManifest.java",
+      "bytes": 6307,
+      "sha256": "121182f8555676d13501cf2aa1730b4616fb95229717d8c0a3a3fd05d2acb121"
+    },
+    {
+      "path": "api/src/main/java/li/cil/oc/api/vm/v2/FrameAssemblerV2.java",
+      "bytes": 6424,
+      "sha256": "1cad5924dde53ef7537b9f04bf97e0707e95f420720c6fd8c96de9e4197f113f"
+    },
+    {
+      "path": "api/src/main/java/li/cil/oc/api/vm/v2/GuestInputV2.java",
+      "bytes": 4009,
+      "sha256": "4ee594e4c7287ba79a4c0d7ace0388610cc64979417c4a4979464597d3c0cd1b"
+    },
+    {
+      "path": "api/src/main/java/li/cil/oc/api/vm/v2/LifecycleV2.java",
+      "bytes": 1995,
+      "sha256": "78d6341b99ec46201512e821fe324c405b4896e5b16eac51dcd1b5892baafedf"
+    },
+    {
+      "path": "api/src/main/java/li/cil/oc/api/vm/v2/OfflineAdapterV2.java",
+      "bytes": 1082,
+      "sha256": "d5f883722ad059b32ca6a7704c47ada803ed745e31f8798f135f4045e21365bc"
+    },
+    {
+      "path": "api/src/main/java/li/cil/oc/api/vm/v2/ProtocolV2.java",
+      "bytes": 7885,
+      "sha256": "3ea3f036aa7d891d5f1053e1849fb0fba89b32675fb0f81f9f338f0d38df7a64"
+    },
+    {
+      "path": "api/src/main/java/li/cil/oc/api/vm/v2/SessionV2.java",
+      "bytes": 4887,
+      "sha256": "d444b6f1a78f42efc92433adc67d4a098f86cef2ff9c246b1110ebbe084dc55d"
+    },
+    {
+      "path": "build.gradle",
+      "bytes": 7410,
+      "sha256": "e64efd8bec3f50940428eedb687ffd627fcbfdae513aa0da7c696d97cf40c3be"
+    },
+    {
+      "path": "forge/src/main/java/li/cil/oc/vm/simulated/OCVMIntegrationSimulated.java",
+      "bytes": 626,
+      "sha256": "cfd3ad8ecd5688420a6c88867d08222fd9eac546f793b810d83d91e54db073bb"
+    },
+    {
+      "path": "forge/src/main/resources/mcmod.info",
+      "bytes": 383,
+      "sha256": "5ce014945d5e95f4ec3eb618f821b70a771ea55edda4bc0ebf02fab4b7e2b716"
+    },
+    {
+      "path": "gradle.properties",
+      "bytes": 103,
+      "sha256": "311d4893cac8128ecee9d614c1e74b7c0232945bbdeacb515f7be7e61bfb9b61"
+    },
+    {
+      "path": "gradle/wrapper/gradle-wrapper.jar",
+      "bytes": 54417,
+      "sha256": "080e30657661539701b66827b96eb0043191e0a7a73090e8a57bd6735e5af5c5"
+    },
+    {
+      "path": "gradle/wrapper/gradle-wrapper.properties",
+      "bytes": 202,
+      "sha256": "5d37681f89a0d4e4adae9d4b842cdcb3321fbb6605a125ded1fd865f476536b8"
+    },
+    {
+      "path": "gradlew",
+      "bytes": 5296,
+      "sha256": "8c4c04dd98db1f00d49456dd162418a39312c5cb13d6865d783deb483bd1ed22"
+    },
+    {
+      "path": "gradlew.bat",
+      "bytes": 2260,
+      "sha256": "0008d785920c9ff5cab17403e0270ccc7ceee8e169b6d67a82d96a5475fec5c9"
+    },
+    {
+      "path": "prototype/src/main/java/li/cil/oc/vm/embedded/EmbeddedRuntime.java",
+      "bytes": 9918,
+      "sha256": "2b509e3ea2b328e77bb66523775535078cc606245e2d54035334369aecf338ee"
+    },
+    {
+      "path": "prototype/src/main/java/li/cil/oc/vm/embedded/NoGuestSupervisor.java",
+      "bytes": 10661,
+      "sha256": "5bc45f409f0a884e7b0d18b87a1a43af9adda4af209f1bf6ec94cc80237f92cb"
+    },
+    {
+      "path": "prototype/src/test/java/li/cil/oc/vm/embedded/EmbeddedRuntimeTest.java",
+      "bytes": 7835,
+      "sha256": "0b08c2fe8e63a62ebeeed9113038512546f974aba749e58fcb9cb7b3461f8a59"
+    },
+    {
+      "path": "prototype/src/test/java/li/cil/oc/vm/embedded/NoGuestSupervisorStrictTest.java",
+      "bytes": 2531,
+      "sha256": "59fbebfe778773ecfe2e84eae465352991a371a23e3b0aca891400ebea9a3816"
+    },
+    {
+      "path": "prototype/src/test/java/li/cil/oc/vm/embedded/NoGuestSupervisorTest.java",
+      "bytes": 5634,
+      "sha256": "4edd1a1b6afec375bb05106b5df484b26ddcf8f38c628232713994c629b8840c"
+    },
+    {
+      "path": "settings.gradle",
+      "bytes": 37,
+      "sha256": "023514626e6a1bce4eb782cc01b967f1786d7bb4d05105cf661e0533b1dfcf08"
+    },
+    {
+      "path": "shared/src/main/java/li/cil/oc/vm/json/BoundedJson.java",
+      "bytes": 10785,
+      "sha256": "9158ed38caff133203af23bd692fc17df3bdc60126822dc8abd827940ece3ec1"
+    },
+    {
+      "path": "src/main/java/li/cil/oc/vm/simulated/MemoryQmpTransport.java",
+      "bytes": 1898,
+      "sha256": "c8de7d5379731d128f5bd4d5b412ced0d9f5f1bef26d2820b3cfe5e257bebd05"
+    },
+    {
+      "path": "src/main/java/li/cil/oc/vm/simulated/OfflineProviders.java",
+      "bytes": 854,
+      "sha256": "7d93de9b585970eec9f5f31c3dcbe56bd52d20fc4f348c10b2c0de41e510bbce"
+    },
+    {
+      "path": "src/main/java/li/cil/oc/vm/simulated/QmpCodec.java",
+      "bytes": 5304,
+      "sha256": "e166cb05a9c5a47527813239bb0845b6267b7e3605bad1ec179f1e32eb7ba9ed"
+    },
+    {
+      "path": "src/main/java/li/cil/oc/vm/simulated/QmpFixtureController.java",
+      "bytes": 9280,
+      "sha256": "fb1dece1b725e81856ae398cfed7710f1646e0b1fda2670b7234f771cd8dd482"
+    },
+    {
+      "path": "src/main/java/li/cil/oc/vm/simulated/SyntheticIoBridge.java",
+      "bytes": 2221,
+      "sha256": "112b67647440df38514ca40cb11373de799e415d31f34cad3f79cb7e3f858afd"
+    },
+    {
+      "path": "src/test/java/li/cil/oc/vm/json/BoundedJsonTest.java",
+      "bytes": 6649,
+      "sha256": "1b738329f61b3807b012ad99f170955572d08478b382dd1d542b1a64d14e1a96"
+    },
+    {
+      "path": "src/test/java/li/cil/oc/vm/json/WireContractTest.java",
+      "bytes": 3089,
+      "sha256": "0da7b3e07f915c470fc0a62dffb6e513ec4e6d8504e7a3f100b03dd25662b334"
+    },
+    {
+      "path": "src/test/java/li/cil/oc/vm/simulated/QmpBoundaryRegressionTest.java",
+      "bytes": 3217,
+      "sha256": "02f89a09828d4dc88122aa394e2a5b9f2c84e7bea48d413c1c107a5f119ab0a2"
+    },
+    {
+      "path": "src/test/java/li/cil/oc/vm/simulated/QmpCodecTest.java",
+      "bytes": 3914,
+      "sha256": "c2a9531227e8ce0d66c764b02b3d06683c2dd2ba4be385e3636c3039ddb5d551"
+    },
+    {
+      "path": "src/test/java/li/cil/oc/vm/simulated/QmpFixtureTest.java",
+      "bytes": 12829,
+      "sha256": "e24d680b177618346e993ee8b177a7e1daa4125254fed29389f4ad6bdd61a5b6"
+    },
+    {
+      "path": "tools/package_guard.py",
+      "bytes": 9845,
+      "sha256": "4364a491c85c97c040b83278018859cac0b0223529c4df112d3a006402fa9b2c"
+    },
+    {
+      "path": "tools/test_package_guard.py",
+      "bytes": 6264,
+      "sha256": "d53afafa02509514129eb844fc19f137a2473e3db450320d50a45def27494ebb"
+    },
+    {
+      "path": "tools/verify.py",
+      "bytes": 4680,
+      "sha256": "1f1f878e563b7c8df2ca541001732d699da0987d1db86b61dfac0186a2ec74bf"
+    },
+    {
+      "path": "vendor/json-java-20260814/LICENSE",
+      "bytes": 16,
+      "sha256": "86cc84f1773e3318ba26fd61b3ae508a167df38b361695e105f6e499e7a2736f"
+    },
+    {
+      "path": "vendor/json-java-20260814/SOURCE-MANIFEST.json",
+      "bytes": 6993,
+      "sha256": "93924452466635bbac9dbc7c35672e3bcb7bb3a88802d6633c27ada330ce5a77"
+    },
+    {
+      "path": "vendor/json-java-20260814/pom.xml",
+      "bytes": 9631,
+      "sha256": "61937e25d261f93d16e8d9f5ccdb1b700780ec1ccb4876444654736628c62095"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/CDL.java",
+      "bytes": 16186,
+      "sha256": "33efdfbc886543ce85238fcdc35c13bd31a8eef9484e8e5c0b5c267b968b633b"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/Cookie.java",
+      "bytes": 8129,
+      "sha256": "0b80ac6d32acc5d0b56ee52a8a45a57a8cd7e682c2991729819dfebc6864a032"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/CookieList.java",
+      "bytes": 2482,
+      "sha256": "ad4034d6370e8472529dbd760d3fd23c2c58f214295a404c4ce20926942951ee"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/HTTP.java",
+      "bytes": 4812,
+      "sha256": "921d9013b3da6d556e6b4d7fde3236d257b00f3a98d1bc1b4cb68067c87e5d6f"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/HTTPTokener.java",
+      "bytes": 1363,
+      "sha256": "666ebbffe90d1985d9c6aa43c87f8ca8a680ec45ea3b71bfe5dfaf293142515a"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/JSONArray.java",
+      "bytes": 72860,
+      "sha256": "0f44ab1c1475b65bdc78a49920eb16309741246b6866fcf7846c86bd9c62767d"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/JSONException.java",
+      "bytes": 1135,
+      "sha256": "93d177d4e7236a58850b911d360a129aed190ee2f8e15cd44f97c7f510d4cbd9"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/JSONML.java",
+      "bytes": 29280,
+      "sha256": "358b51334f63960edb3c013d756c862b37888dc8a28fe5d3cd15a44cb7f4bc14"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/JSONMLParserConfiguration.java",
+      "bytes": 2611,
+      "sha256": "43bd69c53f830653fe6d27957630ba8d33ea7cd45282b3a20bbf3dc0d75d31a3"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/JSONObject.java",
+      "bytes": 137707,
+      "sha256": "1ed9f52ef946581068562bdaa80a5412ac95d3533923df99c323c6d8dc650cf1"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/JSONParserConfiguration.java",
+      "bytes": 6139,
+      "sha256": "b042ae1b06952a510980096a19d85f7e811f400b21d0df3100a7afa363070549"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/JSONPointer.java",
+      "bytes": 10901,
+      "sha256": "0e9dee1f2073fa9eef12ccea010cb9a6b7e176ac0ed6436793cc736c549b158f"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/JSONPointerException.java",
+      "bytes": 954,
+      "sha256": "19a80f86b5760b41dc20a71551947b13079864bfc452337f30f71f8f5de9a879"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/JSONPropertyIgnore.java",
+      "bytes": 632,
+      "sha256": "2250964417ecbfcd27f1c2ca9334aba39de8083bc13825878534d5a68388d5dc"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/JSONPropertyName.java",
+      "bytes": 753,
+      "sha256": "42d2a6adbf415ea79047c62b76f11e0185e85835c2ca9e7b9dd3a93db9263572"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/JSONString.java",
+      "bytes": 732,
+      "sha256": "0b5ce50e18afb082c372da7ad413609d7b36fb13af26e1ab55aa4e733a6bf85b"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/JSONStringer.java",
+      "bytes": 2118,
+      "sha256": "b31b39e2c7176dffd2693683bfa8ad5860b017e15cd5c5fcd51d1dbcb2d7deb0"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/JSONTokener.java",
+      "bytes": 20487,
+      "sha256": "cac49fc894f56ca9da49aacc8f592be3babfe184fbad2d69faf3ae171470f7ab"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/JSONWriter.java",
+      "bytes": 13493,
+      "sha256": "33ebcf4900500d8ce370874100674693f3537fd38e764f4974dc36831dd5ea38"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/ParserConfiguration.java",
+      "bytes": 6763,
+      "sha256": "ec8167757f9197806d2f6d83b8c5b26f3f7b841498b47b75a653e8b70af64ac0"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/Property.java",
+      "bytes": 1958,
+      "sha256": "add68dc61be27693206e26b936c9f2a6330009259a427d7e451c0a7fb2bdcb91"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/StringBuilderWriter.java",
+      "bytes": 2383,
+      "sha256": "50de802df0d89f10ee69f9db4ab5e010ecb0a3ef803c4b85d452380453b93f2e"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/XML.java",
+      "bytes": 49466,
+      "sha256": "9aa52cf010eb3fee8632b040d469a2182a2eedf3de4ff23a1aac45e725dc9cd4"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/XMLParserConfiguration.java",
+      "bytes": 19902,
+      "sha256": "694104994c3c7d3b12e85169baf343525122afa08c877f06b648aa564b03f7c8"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/XMLTokener.java",
+      "bytes": 14728,
+      "sha256": "47d5443def8bc950561144b30d28c05fd0fd6fb2ceaaa3f7ac442b50ea2a4728"
+    },
+    {
+      "path": "vendor/json-java-20260814/src/org/json/XMLXsiTypeConverter.java",
+      "bytes": 1446,
+      "sha256": "578f7cb4d5435f963d9e380719e6b21dd6943ab8dc2f7fd98051d92b1aeb1bf4"
+    }
+  ]
+}

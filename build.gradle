@@ -1,0 +1,132 @@
+plugins { id 'java' }
+group = 'li.cil.oc'
+version = '0.3.0-dev.3'
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+repositories { mavenCentral() }
+
+// Exact upstream source release; runtime bytecode is compiled in an isolated namespace.
+def jsonManifest = new groovy.json.JsonSlurper().parse(file('vendor/json-java-20260814/SOURCE-MANIFEST.json'))
+def generatedJson = layout.buildDirectory.dir('generated/json-java-20260814')
+tasks.register('generateIsolatedJsonJava') {
+    inputs.files(fileTree('vendor/json-java-20260814/src') { include '**/*.java' })
+    inputs.file('vendor/json-java-20260814/SOURCE-MANIFEST.json')
+    outputs.dir generatedJson
+    doLast {
+        if (jsonManifest.version != '20260814' || jsonManifest.commit != '6c140480797ad70a41df84bc8ebab405ca44656b')
+            throw new GradleException('Unexpected JSON-java source release')
+        def actual = fileTree('vendor/json-java-20260814/src') { include '**/*.java' }.files
+        if (actual.size() != jsonManifest.files.size()) throw new GradleException('Unexpected JSON-java source set')
+        jsonManifest.files.each { entry ->
+            def input = file('vendor/json-java-20260814/src/' + entry.path)
+            def bytes = input.bytes
+            def hash = java.security.MessageDigest.getInstance('SHA-256').digest(bytes).encodeHex().toString()
+            if (hash != entry.sha256) throw new GradleException('JSON-java source identity mismatch')
+            def output = new File(generatedJson.get().asFile, entry.path.replace('org/json/', 'li/cil/oc/vm/internal/jsonjava20260814/'))
+            output.parentFile.mkdirs()
+            output.setText(input.getText('UTF-8').replace('org.json', 'li.cil.oc.vm.internal.jsonjava20260814'), 'UTF-8')
+        }
+    }
+}
+sourceSets {
+    json { java.srcDirs = ['shared/src/main/java', generatedJson] }
+    api {
+        java.srcDir 'api/src/main/java'
+        compileClasspath += sourceSets.json.output
+        runtimeClasspath += sourceSets.json.output
+    }
+    main {
+        compileClasspath += sourceSets.api.output + sourceSets.json.output
+        runtimeClasspath += sourceSets.api.output + sourceSets.json.output
+    }
+    test {
+        compileClasspath += sourceSets.api.output + sourceSets.json.output
+        runtimeClasspath += sourceSets.api.output + sourceSets.json.output
+    }
+    prototype {
+        java.srcDir 'prototype/src/main/java'
+        compileClasspath += sourceSets.main.output + sourceSets.api.output + sourceSets.json.output
+        runtimeClasspath += sourceSets.main.output + sourceSets.api.output + sourceSets.json.output
+    }
+    prototypeTest {
+        java.srcDir 'prototype/src/test/java'
+        compileClasspath += sourceSets.prototype.output + sourceSets.main.output + sourceSets.api.output + sourceSets.json.output
+        runtimeClasspath += sourceSets.prototype.output + sourceSets.main.output + sourceSets.api.output + sourceSets.json.output
+    }
+    forge {
+        java.srcDir 'forge/src/main/java'
+        resources.srcDir 'forge/src/main/resources'
+        compileClasspath += sourceSets.main.output + sourceSets.api.output + sourceSets.json.output
+    }
+}
+configurations { prototypeTestImplementation.extendsFrom testImplementation }
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+    if (project.hasProperty('forgeApiJar')) forgeCompileOnly files(project.property('forgeApiJar'))
+}
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.named('compileJsonJava') { dependsOn tasks.named('generateIsolatedJsonJava') }
+tasks.named('compileApiJava') { dependsOn tasks.named('jsonClasses') }
+tasks.named('compileJava') { dependsOn tasks.named('apiClasses'), tasks.named('jsonClasses') }
+tasks.named('compilePrototypeJava') { dependsOn tasks.named('classes'), tasks.named('apiClasses'), tasks.named('jsonClasses') }
+tasks.named('compilePrototypeTestJava') { dependsOn tasks.named('prototypeClasses'), tasks.named('testClasses') }
+tasks.named('compileForgeJava') {
+    dependsOn tasks.named('classes'), tasks.named('apiClasses'), tasks.named('jsonClasses')
+    doFirst {
+        if (!project.hasProperty('forgeApiJar') || !file(project.property('forgeApiJar')).isFile())
+            throw new GradleException('Provide the existing Forge 1.12.2 API JAR; acquisition is not automatic.')
+    }
+}
+tasks.withType(Test).configureEach { maxHeapSize = '128m'; maxParallelForks = 1 }
+tasks.register('prototypeTest', Test) {
+    dependsOn tasks.named('prototypeTestClasses')
+    testClassesDirs = sourceSets.prototypeTest.output.classesDirs
+    classpath = sourceSets.prototypeTest.runtimeClasspath
+    doFirst {
+        def fixtures = layout.buildDirectory.dir('prototype-fixtures').get().asFile
+        fixtures.mkdirs()
+        systemProperty 'ocpp.embedded.fixtureRoot', fixtures.absolutePath
+    }
+}
+tasks.named('check') { dependsOn tasks.named('prototypeTest') }
+def checkLicenceDecision = {
+    def decision = new groovy.json.JsonSlurper().parse(file('LICENSE-DECISION.json'))
+    if (decision.confirmed != true || !(decision.spdx in ['GPL-2.0-only','GPL-2.0-or-later','GPL-3.0-only','GPL-3.0-or-later']) || !file('LICENSE').isFile() || decision.indirectRuntimeReviewConfirmed != true)
+        throw new GradleException('Licence choice and actual main-mod runtime review remain gated; see LICENSING.md.')
+}
+tasks.named('jar') {
+    archiveBaseName = 'OCVMIntegration-core'
+    from sourceSets.json.output
+    doFirst checkLicenceDecision
+    from('LICENSE') { into 'META-INF'; rename { 'LICENSE-OCVMIntegration' } }
+    from('LICENSES') { into 'META-INF/ocvmintegration-licenses' }
+    from('vendor/json-java-20260814/LICENSE') { into 'META-INF/ocvmintegration-licenses'; rename { 'JSON-java-UPSTREAM-LICENSE.txt' } }
+}
+tasks.register('forgeJar', Jar) {
+    dependsOn tasks.named('forgeClasses')
+    archiveBaseName = 'OCVMIntegration'
+    from sourceSets.main.output
+    from sourceSets.forge.output
+    from sourceSets.json.output
+    doFirst checkLicenceDecision
+    from('LICENSE') { into 'META-INF'; rename { 'LICENSE-OCVMIntegration' } }
+    from('LICENSES') { into 'META-INF/ocvmintegration-licenses' }
+    from('vendor/json-java-20260814/LICENSE') { into 'META-INF/ocvmintegration-licenses'; rename { 'JSON-java-UPSTREAM-LICENSE.txt' } }
+}
+// Shared packaging-only check; never mutates compiler task actions/fingerprints.
+['jar', 'forgeJar'].each { taskName ->
+    tasks.named(taskName) {
+        inputs.file('tools/package_guard.py')
+        doLast {
+            if (!project.hasProperty('ocvmPython') || !file(project.property('ocvmPython')).isFile())
+                throw new GradleException('Provide -PocvmPython=<existing Python 3 executable> for mandatory package validation.')
+            def roots = sourceSets.main.output.classesDirs.files + sourceSets.json.output.classesDirs.files
+            if (taskName == 'forgeJar') roots += sourceSets.forge.output.classesDirs.files
+            def arguments = [project.property('ocvmPython'), '-B', file('tools/package_guard.py').absolutePath, archiveFile.get().asFile.absolutePath]
+            roots.each { arguments += ['--class-root', it.absolutePath] }
+            project.exec { commandLine arguments }
+        }
+    }
+}
+// Compile/test API snapshots and prototype classes are NEVER included in addon JARs.
+// No publishing, QEMU, external IPC, native extraction or guest-start tasks exist.

@@ -1,0 +1,16 @@
+{
+  "confirmed": true,
+  "spdx": "GPL-2.0-only",
+  "spdx_scope": "Overall combined project at GPL version 2; separate file grants remain as described in LICENSING.md, including project-owned unmarked-source GPLv2-or-later grant following the selected QEMU policy.",
+  "user_selection": "QEMU-matching GPL version 2 with separately Public Domain JSON-java",
+  "prototypeDisposition": "unchanged-existing-GPL-2.0-only-headers; excluded from test artifact",
+  "json_java": "Exact Public Domain declaration retained",
+  "engineeringLinkageReviewCompleted": true,
+  "indirectRuntimeReviewConfirmed": false,
+  "privateTestPackagingPermitted": true,
+  "publicReleaseCleared": false,
+  "repository": "https://github.com/TroubledPerson/OCVMIntegration",
+  "reason": "Owner authorized public source-only repository. GPLv2 combined-project scope and per-file grants retained; exact JSON-java Public Domain declaration preserved. Main-mod external/indirect Gson paths are disclosed and permitted; this is not legal compatibility clearance. Existing binary qualification gates are unchanged.",
+  "publicSourcePublicationAuthorized": true,
+  "publicBinaryReleaseCleared": false
+}

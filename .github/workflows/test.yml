@@ -1,0 +1,51 @@
+{
+  "name": "OCVMIntegration test-only checks",
+  "on": {
+    "push": {"branches": ["main"]},
+    "pull_request": {"branches": ["main"]},
+    "workflow_dispatch": {}
+  },
+  "permissions": {"contents": "read"},
+  "concurrency": {
+    "group": "ocvm-tests-${{ github.ref }}",
+    "cancel-in-progress": true
+  },
+  "jobs": {
+    "offline": {
+      "runs-on": "ubuntu-24.04",
+      "timeout-minutes": 20,
+      "env": {"PYTHONDONTWRITEBYTECODE": "1", "CI": "true"},
+      "steps": [
+        {
+          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "with": {"persist-credentials": false, "ref": "${{ github.sha }}"}
+        },
+        {
+          "uses": "actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961",
+          "with": {"distribution": "temurin", "java-version": "8"}
+        },
+        {
+          "name": "Verify pinned inputs, notices and test-only policy",
+          "run": "python3 -B tools/ci/check_test_build.py prepare --init \"$RUNNER_TEMP/ocvm-test-only.gradle\""
+        },
+        {
+          "name": "Python packaging and CI-policy regression fixtures",
+          "run": "python3 -B tools/test_package_guard.py\npython3 -B tools/ci/test_test_build.py"
+        },
+        {
+          "name": "Prove artifact tasks are refused before execution",
+          "shell": "bash",
+          "run": "set -euo pipefail\nif bash ./gradlew --no-daemon --max-workers=1 --console=plain --init-script \"$RUNNER_TEMP/ocvm-test-only.gradle\" jar --dry-run > \"$RUNNER_TEMP/ocvm-refused-task.log\" 2>&1; then\n  cat \"$RUNNER_TEMP/ocvm-refused-task.log\"\n  echo \"Forbidden artifact task was accepted\" >&2\n  exit 1\nfi\ncat \"$RUNNER_TEMP/ocvm-refused-task.log\"\ngrep -F \"Test-only CI refuses artifact task:\" \"$RUNNER_TEMP/ocvm-refused-task.log\""
+        },
+        {
+          "name": "Compile Java 8 and run all offline suites",
+          "run": "bash ./gradlew --no-daemon --max-workers=1 --console=plain --init-script \"$RUNNER_TEMP/ocvm-test-only.gradle\" classes check"
+        },
+        {
+          "name": "Verify compiled boundaries and complete test reports",
+          "run": "python3 -B tools/ci/check_test_build.py results"
+        }
+      ]
+    }
+  }
+}

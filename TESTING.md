@@ -19,3 +19,26 @@ Optional --main-api <unchanged-main-JAR> adds a compile-only compatibility check
 Run `python -B tools/test_package_guard.py` for in-memory packaging fixtures. See
 PACKAGING-REQUIREMENTS.md for mandatory package validation and its source/output
 trust boundary. These tests neither execute Java nor create an installable JAR.
+
+## GitHub Actions: test-only checks
+
+The workflow runs on pushes and pull requests to main, and manual dispatch.
+It uses Ubuntu 24.04, pinned checkout/Java setup actions, Java 8 and one Gradle
+worker. The Gradle distribution checksum is verified in the disposable runner
+checkout; committed wrapper bytes are preserved.
+
+The workflow compiles core/API/isolated JSON and prototype sources, runs classes
+and check (including the 98 existing offline JUnit tests), runs the 23 packaging
+fixtures plus CI-policy fixtures, and inspects actual compiled class names and
+Java 8 format. Missing reports, failures, errors, skipped tests or reduced
+coverage fail CI. An actual dry-run invocation proves JAR tasks are refused by
+the execution-graph allowlist before task actions can run.
+
+The token is read-only; checkout does not persist credentials. There are no
+artifact uploads, publishing commands, release jobs or native launches. Existing
+binary-publication gates and licence notices remain unchanged. Results appear
+in logs and the job summary, with no distributable JAR produced.
+
+These checks use the compile/test API snapshot. They do not execute the actual
+main-mod Gson runtime, perform Forge/actual-main-API compilation, or establish
+Minecraft/QEMU/guest behavior. Those remain separate qualification steps.

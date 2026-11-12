@@ -12,6 +12,11 @@
   "sourceRepository": "https://github.com/TroubledPerson/OCVMIntegration",
   "files": [
     {
+      "path": ".github/workflows/test.yml",
+      "bytes": 2215,
+      "sha256": "28022fcb928870040354e989fb00f413d935cff91bdfba7444a214f68deb8085"
+    },
+    {
       "path": ".gitignore",
       "bytes": 301,
       "sha256": "e0bfc3d823a139f15a2aa518fb7f828ce631a10deacbc57e9d65678a6c6fa422"
@@ -73,8 +78,8 @@
     },
     {
       "path": "TESTING.md",
-      "bytes": 2324,
-      "sha256": "065c5c3365d5be5d46ae6ae4ab71cfd1c0c6746d5e5093914425f4ff0928f160"
+      "bytes": 3678,
+      "sha256": "17ba773c966533c1f039a60896c38866ab58a8ee29150a8526d55812d5bbeff7"
     },
     {
       "path": "api/src/main/java/li/cil/oc/api/vm/AggregateLease.java",
@@ -257,6 +262,16 @@
       "sha256": "e24d680b177618346e993ee8b177a7e1daa4125254fed29389f4ad6bdd61a5b6"
     },
     {
+      "path": "tools/ci/check_test_build.py",
+      "bytes": 8082,
+      "sha256": "b1a35253d9cf9b8c533a586b9e67d440cfa1a8c3abd0f3343a08512509a611ba"
+    },
+    {
+      "path": "tools/ci/test_test_build.py",
+      "bytes": 4570,
+      "sha256": "6405e0d423cb165cbf05b70a8e101259125f3591fdeddb40016f2862f1159767"
+    },
+    {
       "path": "tools/package_guard.py",
       "bytes": 9845,
       "sha256": "4364a491c85c97c040b83278018859cac0b0223529c4df112d3a006402fa9b2c"
@@ -416,5 +431,9 @@
       "bytes": 1446,
       "sha256": "578f7cb4d5435f963d9e380719e6b21dd6943ab8dc2f7fd98051d92b1aeb1bf4"
     }
-  ]
+  ],
+  "testOnlyCi": {
+    "scope": "Compilation/offline checks only; no binaries uploaded or releases created",
+    "productionSourcesAndLicencesUnchanged": true
+  }
 }

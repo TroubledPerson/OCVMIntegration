@@ -42,6 +42,10 @@
           "run": "bash ./gradlew --no-daemon --max-workers=1 --console=plain --init-script \"$RUNNER_TEMP/ocvm-test-only.gradle\" classes check"
         },
         {
+          "name": "Compile against the pinned actual dev33 API without snapshots",
+          "run": "python3 -B tools/ci/check_test_build.py main-api"
+        },
+        {
           "name": "Verify compiled boundaries and complete test reports",
           "run": "python3 -B tools/ci/check_test_build.py results"
         }

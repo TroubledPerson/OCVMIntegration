@@ -13,8 +13,8 @@
   "files": [
     {
       "path": ".github/workflows/test.yml",
-      "bytes": 2215,
-      "sha256": "28022fcb928870040354e989fb00f413d935cff91bdfba7444a214f68deb8085"
+      "bytes": 2387,
+      "sha256": "89a72f8483d6007b005b778c1004dc27ea4115b7994e757a42dc23014af04d4f"
     },
     {
       "path": ".gitignore",
@@ -78,8 +78,8 @@
     },
     {
       "path": "TESTING.md",
-      "bytes": 3678,
-      "sha256": "17ba773c966533c1f039a60896c38866ab58a8ee29150a8526d55812d5bbeff7"
+      "bytes": 4155,
+      "sha256": "4eba31912cd3f630ab823ae7b082f2c12f0ea05a5d2b8975f0a7d0bbeef6e078"
     },
     {
       "path": "api/src/main/java/li/cil/oc/api/vm/AggregateLease.java",
@@ -263,13 +263,13 @@
     },
     {
       "path": "tools/ci/check_test_build.py",
-      "bytes": 8082,
-      "sha256": "b1a35253d9cf9b8c533a586b9e67d440cfa1a8c3abd0f3343a08512509a611ba"
+      "bytes": 12600,
+      "sha256": "f4afa74463af7771ccdd5890028db1c6dd89ad6c91bfcd15a16d530b74187234"
     },
     {
       "path": "tools/ci/test_test_build.py",
-      "bytes": 4570,
-      "sha256": "6405e0d423cb165cbf05b70a8e101259125f3591fdeddb40016f2862f1159767"
+      "bytes": 5586,
+      "sha256": "a53c7d804fc79f1734a427ca1d60c5797d477e6c23becabfecfd502f81e39a77"
     },
     {
       "path": "tools/package_guard.py",
@@ -434,6 +434,7 @@
   ],
   "testOnlyCi": {
     "scope": "Compilation/offline checks only; no binaries uploaded or releases created",
-    "productionSourcesAndLicencesUnchanged": true
+    "productionSourcesAndLicencesUnchanged": true,
+    "actualMainApiCompile": "Pinned dev33 pre.3 JAR; no snapshot classpath, annotation processing or addon/runtime execution"
   }
 }

@@ -5,7 +5,10 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import subprocess
 import sys
+import urllib.parse
+import urllib.request
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -16,6 +19,11 @@ CHECKOUT = "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1"
 JAVA = "actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961"
 WRAPPER = "080e30657661539701b66827b96eb0043191e0a7a73090e8a57bd6735e5af5c5"
 DIST = "673d9776f303bc7048fc3329d232d6ebf1051b07893bd9d11616fad9a8673be0"
+MAIN_API_URL = ("https://github.com/TroubledPerson/OpenComputersPlusPlus/releases/download/"
+                "ocpp-dev33-close-onset-pre.3/"
+                "OpenComputersPlusPlus-MC1.12.2-dev.33-close-onset-pre.3.jar")
+MAIN_API_SHA = "01b8450c834809ead077b28080f48886526a4f266141e342bbc49a7ea7f1f3b6"
+MAIN_API_BYTES = 25102877
 INIT = """
 gradle.taskGraph.whenReady { graph ->
     def allowed = ['generateIsolatedJsonJava','compileJsonJava','processJsonResources',
@@ -131,6 +139,68 @@ def report_counts(documents, minimum=98):
     return total
 
 
+def read_pinned(stream, expected_bytes, expected_sha):
+    require(0 < expected_bytes <= 32 * 1024 * 1024, "Compile input size bound")
+    data = bytearray()
+    while True:
+        limit = min(65536, expected_bytes + 1 - len(data))
+        chunk = stream.read(limit)
+        require(len(chunk) <= limit, "Transport exceeded bounded read")
+        if not chunk:
+            break
+        data.extend(chunk)
+        require(len(data) <= expected_bytes, "Oversized compile input")
+    require(len(data) == expected_bytes, "Truncated compile input")
+    require(hashlib.sha256(data).hexdigest() == expected_sha, "Compile input hash mismatch")
+    return bytes(data)
+
+
+def main_api():
+    inputs()
+    temp = Path(os.environ["RUNNER_TEMP"]).resolve()
+    jar = temp / "ocvm-pinned-dev33-api.jar"
+    require(temp.is_dir() and not jar.exists(), "Fresh runner compile input required")
+    # Public, immutable release input; no credentials, native extraction or execution.
+    with urllib.request.urlopen(MAIN_API_URL, timeout=60) as response:
+        final = urllib.parse.urlparse(response.geturl())
+        require(final.scheme == "https" and final.hostname in {
+            "github.com", "release-assets.githubusercontent.com", "objects.githubusercontent.com"},
+            "Unexpected compile-input redirect")
+        size = response.headers.get("Content-Length")
+        require(size is None or int(size) == MAIN_API_BYTES, "Unexpected compile-input length")
+        data = read_pinned(response, MAIN_API_BYTES, MAIN_API_SHA)
+    jar.write_bytes(data)
+    support = ROOT / "build/classes/java/json"
+    require(support.is_dir(), "Compile isolated JSON before the API boundary check")
+    out = ROOT / "build/actual-main-api-compile"
+    require(not out.exists(), "Fresh compile-only output required")
+    out.mkdir()
+    empty = out / "empty-sourcepath"
+    empty.mkdir()
+    sources = sorted((ROOT / "src/main/java").rglob("*.java"))
+    sources += sorted((ROOT / "prototype/src/main/java").rglob("*.java"))
+    require(bool(sources), "No compile-boundary sources")
+    javac = Path(os.environ["JAVA_HOME"]) / "bin" / ("javac.exe" if os.name == "nt" else "javac")
+    # No API snapshot or earlier snapshot-compiled main classes enter this classpath.
+    subprocess.run([str(javac), "-J-Xmx128m", "-J-XX:MaxMetaspaceSize=64m",
+                    "-source", "8", "-target", "8", "-encoding", "UTF-8",
+                    "-proc:none", "-implicit:none", "-sourcepath", str(empty),
+                    "-cp", os.pathsep.join((str(jar), str(support))), "-d", str(out)]
+                   + [str(p) for p in sources], check=True, timeout=90)
+    classes = sorted(out.rglob("*.class"))
+    require(0 < len(classes) <= 256, "Unexpected compile-boundary output")
+    for path in classes:
+        name = package_guard.class_name(path.read_bytes())
+        require(name.startswith("li/cil/oc/vm/"), "Unexpected compile-boundary class")
+    record = {"inputSHA256": MAIN_API_SHA, "inputBytes": MAIN_API_BYTES,
+              "sourceFiles": len(sources), "java8Classes": len(classes),
+              "snapshotClasspathIncluded": False, "annotationProcessing": False,
+              "codeExecuted": False, "forgeCompiled": False}
+    (ROOT / "build/actual-main-api-compile.json").write_text(json.dumps(record))
+    print("PASS: actual dev33 API compile; %d sources; %d Java-8 classes; "
+          "snapshots excluded; no addon/main/native code executed." % (len(sources), len(classes)))
+
+
 def results():
     inputs()
     documents = []
@@ -144,6 +214,11 @@ def results():
     require(any(n.startswith("li/cil/oc/vm/internal/jsonjava20260814/") for n in classes),
             "Isolated JSON-java missing")
     require(not list((ROOT / "build").rglob("*.jar")), "Unexpected binary artifact produced")
+    boundary = json.loads((ROOT / "build/actual-main-api-compile.json").read_text())
+    require(boundary["inputSHA256"] == MAIN_API_SHA and
+            boundary["snapshotClasspathIncluded"] is False and
+            boundary["annotationProcessing"] is False and boundary["codeExecuted"] is False,
+            "Actual-main API compile evidence missing or invalid")
     print("PASS: %d offline tests; %d Java-8 addon/isolated-JSON classes checked; no JAR." %
           (total, len(classes)))
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
@@ -155,16 +230,20 @@ def results():
             f.write("- API snapshots/prototype are compile/test inputs, excluded from addon roots.\n")
             f.write("- Packaging fixtures and actual forbidden-task rejection passed.\n")
             f.write("- Binary-publication gate and licence notices retained. No JAR, upload or release.\n")
-            f.write("- Forge/actual-main-API compilation and Minecraft/QEMU runtime tests are not run here.\n")
+            f.write("- Actual pinned dev33 API compilation passed with snapshots and annotation processing excluded.\n")
+            f.write("- That compile check does not execute main-mod Gson paths or prove runtime/linkage compatibility.\n")
+            f.write("- Forge compilation and Minecraft/QEMU runtime tests are not run here.\n")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("phase", choices=("prepare", "results"))
+    parser.add_argument("phase", choices=("prepare", "main-api", "results"))
     parser.add_argument("--init", type=Path)
     args = parser.parse_args()
     if args.phase == "prepare":
         require(args.init is not None, "Explicit runner init-script path required")
         prepare(args.init)
+    elif args.phase == "main-api":
+        main_api()
     else:
         results()

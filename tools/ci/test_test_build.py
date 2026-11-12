@@ -1,5 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 """In-memory CI permissions, pins and report-accounting regressions."""
+import hashlib
+import io
 import json
 import unittest
 import check_test_build as ci
@@ -97,6 +99,29 @@ class CiPolicyTests(unittest.TestCase):
         for path in ("native/qemu.exe", "native/runtime.dll", "addon.jar", "vm/disk.qcow2"):
             with self.subTest(path=path), self.assertRaises(ValueError):
                 ci.inventory_policy([{"path": path}])
+
+    def test_pinned_compile_input(self):
+        data = b"compile-only fixture"
+        self.assertEqual(ci.read_pinned(io.BytesIO(data), len(data),
+                                      hashlib.sha256(data).hexdigest()), data)
+
+    def test_pinned_compile_input_rejects_wrong_hash(self):
+        with self.assertRaises(ValueError):
+            ci.read_pinned(io.BytesIO(b"input"), 5, "0" * 64)
+
+    def test_pinned_compile_input_rejects_truncation(self):
+        with self.assertRaises(ValueError):
+            ci.read_pinned(io.BytesIO(b"short"), 6, "0" * 64)
+
+    def test_pinned_compile_input_stops_at_size_plus_one(self):
+        stream = io.BytesIO(b"x" * 1000)
+        with self.assertRaises(ValueError):
+            ci.read_pinned(stream, 10, "0" * 64)
+        self.assertEqual(stream.tell(), 11)
+
+    def test_pinned_compile_input_rejects_unbounded_size(self):
+        with self.assertRaises(ValueError):
+            ci.read_pinned(io.BytesIO(b""), 32 * 1024 * 1024 + 1, "0" * 64)
 
 
 if __name__ == "__main__":

@@ -39,6 +39,13 @@ artifact uploads, publishing commands, release jobs or native launches. Existing
 binary-publication gates and licence notices remain unchanged. Results appear
 in logs and the job summary, with no distributable JAR produced.
 
-These checks use the compile/test API snapshot. They do not execute the actual
-main-mod Gson runtime, perform Forge/actual-main-API compilation, or establish
-Minecraft/QEMU/guest behavior. Those remain separate qualification steps.
+Offline runtime tests use the compile/test API snapshot. A separate compile-only
+check fetches the immutable dev33 pre.3 JAR into runner temporary storage, enforces
+its exact 25,102,877-byte size and SHA-256, and compiles addon/prototype sources
+against that real API plus isolated JSON support. Snapshots are excluded from the
+classpath. Annotation processing and implicit source compilation are disabled.
+The input JAR is neither executed nor uploaded, and no addon JAR is produced.
+
+This verifies a real compile boundary, not execution of main-mod Gson paths,
+runtime/linkage compatibility or legal clearance. Forge compilation and
+Minecraft/QEMU/guest behavior remain separate qualification steps.
